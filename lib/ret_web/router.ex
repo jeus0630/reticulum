@@ -87,6 +87,10 @@ defmodule RetWeb.Router do
     plug RetWeb.AddAbsintheContext
   end
 
+  pipeline :inject_admin_account do
+    plug (RetWeb.Plugs.InjectAdminAccount)
+  end
+
   scope "/health", RetWeb do
     get("/", HealthController, :index)
   end
@@ -157,7 +161,8 @@ defmodule RetWeb.Router do
     end
 
     scope "/v1", as: :api_v1 do
-      pipe_through([:auth_required])
+      #pipe_through([:auth_required])
+      pipe_through([:inject_admin_account])
       resources("/scenes", Api.V1.SceneController, only: [:create, :update])
       resources("/avatars", Api.V1.AvatarController, only: [:create, :update, :delete])
       resources("/hubs", Api.V1.HubController, only: [:update])
