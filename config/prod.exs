@@ -130,8 +130,8 @@ config :ret, RetWeb.Plugs.HeaderAuthorization, header_name: "x-ret-admin-access-
 
 config :ret, Ret.Mailer,
   adapter: Bamboo.SMTPAdapter,
-  tls: :always,
-  ssl: false,
+  tls: :never,
+  ssl: true,
   retries: 3
 
 config :ret, Ret.Guardian, issuer: "ret", ttl: {12, :weeks}, allowed_drift: 60 * 1000
