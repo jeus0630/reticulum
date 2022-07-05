@@ -91,6 +91,10 @@ defmodule RetWeb.Router do
     plug (RetWeb.Plugs.InjectAdminAccount)
   end
 
+  scope "/belivvr-reticulum", BelivvrReticulumWeb do
+    get("/", BelivvrReticulumController, :index)
+  end
+
   scope "/health", RetWeb do
     get("/", HealthController, :index)
   end
