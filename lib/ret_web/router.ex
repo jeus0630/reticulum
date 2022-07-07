@@ -88,7 +88,7 @@ defmodule RetWeb.Router do
   end
 
   pipeline :inject_admin_account do
-    plug (RetWeb.Plugs.InjectAdminAccount)
+    plug RetWeb.Plugs.InjectAdminAccount
   end
 
   scope "/belivvr-reticulum" do
@@ -160,9 +160,7 @@ defmodule RetWeb.Router do
     end
 
     scope "/v1", as: :api_v1 do
-      pipe_through(
-        if(Mix.env() == :test, do: [:auth_required], else: [:inject_admin_account])
-      )
+      pipe_through(if(Mix.env() == :test, do: [:auth_required], else: [:inject_admin_account]))
       resources("/scenes", Api.V1.SceneController, only: [:create, :update])
       resources("/avatars", Api.V1.AvatarController, only: [:create, :update, :delete])
       resources("/hubs", Api.V1.HubController, only: [:update])
