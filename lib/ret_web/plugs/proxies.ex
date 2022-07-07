@@ -7,3 +7,8 @@ defmodule RetWeb.Plugs.ItaProxy do
   use Plug.Builder
   plug ReverseProxyPlug, upstream: "http://localhost:6000"
 end
+
+defmodule RetWeb.Plugs.BelivvrReticulumWebProxy do
+  use Plug.Builder
+  plug ReverseProxyPlug, upstream: "http://localhost:4010"
+end
